@@ -126,33 +126,31 @@ class CallbackController extends Controller
         return $response;
     }
 
-    public function payninja(Request $request)
+    public function payscope(Request $request)
     {
-        Log::info(['callback-pnja' => $request->all()]);
+        Log::info(['callback-payscope' => $request->all()]);
 
         $data = DB::transaction(function () use ($request) {
-
-            $data = json_decode(PayninjaController::encryptDecrypt('decrypt', $request['data'], 'd0143bc26b3d1c9a4f0d254bf7527268', $request['iv']), 1);
-            $transaction = Transaction::where('reference_id', $data['merchant_reference_id'])->firstOrFail();
+            $transaction = Transaction::where('reference_id', $request['data']['clientRefId'])->firstOrFail();
             $lock = $this->lockRecords($transaction->user_id);
 
             if (!$lock->get()) {
                 throw new HttpResponseException(response()->json(['data' => ['message' => "Failed to acquire lock"]], 423));
             }
 
-            if (in_array(strtolower($data['status']), ["failed", "reversed"])) {
+            if ($request['event'] == 'payout.transfer.failed') {
                 if ($transaction->status == 'failed' || $transaction->status == 'reversed') {
                     return response("Success", 200);
                 }
                 TransactionController::reverseTransaction($transaction->reference_id);
                 Payout::where('reference_id', $transaction->reference_id)->update([
                     'status' => 'failed',
-                    'utr' => $data['utr'] ?? null
+                    'utr' => $request['data']['utr'] ?? null
                 ]);
-            } elseif (strtolower($data['status']) == "success") {
+            } elseif ($request['event'] == 'payout.transfer.success') {
                 Payout::where('reference_id', $transaction->reference_id)->update([
                     'status' => 'success',
-                    'utr' => $data['utr'] ?? null
+                    'utr' => $request['data']['utr'] ?? null
                 ]);
             }
 

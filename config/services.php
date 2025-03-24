@@ -103,5 +103,11 @@ return [
         'base_url' => 'https://api.cashfree.com',
         'client_id' => env('CASHFREE_CLIENT_ID'),
         'client_secret' => env('CASHFREE_CLIENT_SECRET'),
+    ],
+
+    'payscope' => [
+        'base_url' => 'https://login.groscope.in/v1',
+        'client_id' => env('PAYSOCPE_CLIENT_ID'),
+        'client_secret' => env('PAYSOCPE_CLIENT_SECRET'),
     ]
 ];

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Services\Payout\PayscopeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return [config('app.name') => 'Dezynation India'];
+    return [config('app.name') => 'Devops'];
 });
 
 require __DIR__ . '/auth.php';

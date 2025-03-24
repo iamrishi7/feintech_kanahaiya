@@ -70,7 +70,7 @@ class PayscopeController extends Controller
         return $response['data']['contactId'];
     }
 
-    public function initiateTransaction(PayoutRequest $request, string $reference_id = 'test155')
+    public function initiateTransaction(PayoutRequest $request, string $reference_id)
     {
         $data = [
             'amount' => $request->amount,

@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Services\Payout\PayscopeController;
 use Illuminate\Support\Facades\Route;
 
 /*

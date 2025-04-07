@@ -43,7 +43,7 @@ class PayscopeController extends Controller
     }
 
     public function createContact(PayoutRequest $request, $reference_id)
-    {w
+    {
         $data = [
             'firstName' => $request['beneficiary_name'],
             'lastName' => $request['beneficiary_name'],

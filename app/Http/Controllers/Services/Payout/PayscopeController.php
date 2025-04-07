@@ -43,12 +43,9 @@ class PayscopeController extends Controller
 
     public function createContact(PayoutRequest $request, $reference_id)
     {
-        $parts = explode(" ", $request['beneficiary_name'], 2);
-        $first_name = $parts[0];
-        $last_name = isset($parts[1]) ? $parts[1] : '';
         $data = [
-            'firstName' => $first_name,
-            'lastName' => $last_name,
+            'firstName' => $request['beneficiary_name'],
+            'lastName' => $request['beneficiary_name'],
             'email' => $request->user()->email,
             'mobile' => $request->user()->phone_number,
             'type' => 'customer',

@@ -51,6 +51,7 @@ class PayscopeController extends Controller
             'mobile' => $request->user()->phone_number,
             'type' => 'customer',
             'accountType' => 'bank_account',
+            'bankName' => 'Yes Bank',
             'accountNumber' => $request->account_number,
             'ifsc' => strtoupper($request->ifsc_code),
             'referenceId' => preg_replace("/^PAY-\d+/", 'REF-', $reference_id),

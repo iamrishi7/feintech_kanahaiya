@@ -63,6 +63,7 @@ class PayscopeController extends Controller
                 return $response['message']['contact_id'][0];
             }
         }
+        Log::info(['req' => $data]);
         $this->abortRequest($response, $request);
 
         return $response['data']['contactId'];

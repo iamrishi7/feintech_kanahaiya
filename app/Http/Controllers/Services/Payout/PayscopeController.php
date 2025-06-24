@@ -15,7 +15,7 @@ class PayscopeController extends Controller
     public function abortRequest(Response $response, PayoutRequest $request)
     {
         if ($response['code'] != '0x0200') {
-            Log::info(['err_req' => $request->all()]);
+            Log::info(['err_req' => $request->validated()]);
             Log::info(['error_payscope' => $response->body()]);
             $this->releaseLock($request->user()->id);
             abort(400, $response['status']);
@@ -50,7 +50,7 @@ class PayscopeController extends Controller
             'mobile' => $request->user()->phone_number,
             'type' => 'customer',
             'accountType' => 'bank_account',
-            'bankName' => $request->bank_name,
+            'bankName' => $request->bank_name ?? "IFSC Bank",
             'accountNumber' => $request->account_number,
             'ifsc' => strtoupper($request->ifsc_code),
             'referenceId' => preg_replace("/^PAY-\d+/", 'REF-', $reference_id),

@@ -24,7 +24,6 @@ class PayscopeController extends Controller
 
     public function processResponse(Response $response)
     {
-        Log::info(['body' => $response->body()]);
         if ($response['code'] == '0x0200') {
             $data = [
                 'status' => 'success',

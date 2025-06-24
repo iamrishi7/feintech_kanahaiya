@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return [config('app.name') => 'Devops'];
+    return [config('app.name') => 'Development'];
 });
 
 require __DIR__ . '/auth.php';

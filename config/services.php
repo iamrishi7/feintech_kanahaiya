@@ -109,5 +109,11 @@ return [
         'base_url' => 'https://login.groscope.in/v1',
         'client_id' => env('PAYSOCPE_CLIENT_ID'),
         'client_secret' => env('PAYSOCPE_CLIENT_SECRET'),
+    ],
+
+    'rafifintech' => [
+        'base_url' => 'https://rafifintech.in/v1',
+        'client_id' => env('RAFIFINTECH_CLIENT_ID'),
+        'client_secret' => env('RAFIFINTECH_CLIENT_SECRET'),
     ]
 ];

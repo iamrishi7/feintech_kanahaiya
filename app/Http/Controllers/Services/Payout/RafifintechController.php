@@ -15,7 +15,7 @@ class RafifintechController extends Controller
     {
         if ($response['code'] != '0x0200') {
             Log::info(['err_req' => $request->validated()]);
-            Log::info(['error_payscope' => $response->body()]);
+            Log::info(['error_rafi' => $response->body()]);
             $this->releaseLock($request->user()->id);
             abort(400, $response['status']);
         }
@@ -55,8 +55,8 @@ class RafifintechController extends Controller
             'referenceId' => preg_replace("/^PAY-\d+/", 'REF-', $reference_id),
         ];
 
-        $response = Http::withBasicAuth(config('services.payscope.client_id'), config('services.payscope.client_secret'))
-            ->post(config('services.payscope.base_url') . '/service/payout/contacts', $data);
+        $response = Http::withBasicAuth(config('services.rafifintech.client_id'), config('services.rafifintech.client_secret'))
+            ->post(config('services.rafifintech.base_url') . '/service/payout/contacts', $data);
         if (is_array($response['message'])) {
             if (array_key_exists('contact_id', $response['message'])) {
                 return $response['message']['contact_id'][0];
@@ -80,8 +80,8 @@ class RafifintechController extends Controller
             'udf2' => ''
         ];
 
-        $response = Http::withBasicAuth(config('services.payscope.client_id'), config('services.payscope.client_secret'))
-            ->post(config('services.payscope.base_url') . '/service/payout/orders', $data);
+        $response = Http::withBasicAuth(config('services.rafifintech.client_id'), config('services.rafifintech.client_secret'))
+            ->post(config('services.rafifintech.base_url') . '/service/payout/orders', $data);
 
         $this->abortRequest($response, $request);
 
